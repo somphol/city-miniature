@@ -111,6 +111,12 @@ the ANGLE backend.
 - Phone behaviour was verified under touch emulation in headless Chrome only.
 - Missing WebGL 2 shows a localized message.
 
+## Provenance
+
+The template derives from the Manhattan Miniature 0.2.0 sample by SandBase Lab. Reused mechanism
+versus new work, and the licence status, are documented in [ATTRIBUTION.md](ATTRIBUTION.md) next to
+this file. The original brand mark is not redistributed.
+
 ## Known rough edges in the template
 
 - The bridge's city end stops above the Presidio without an approach viaduct.

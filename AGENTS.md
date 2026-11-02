@@ -6,12 +6,13 @@ Read `SKILL.md` first; this file is the handoff for whoever works on the skill i
 ## Commands
 
 ```sh
-# scaffold and build a project from the template
+# scaffold and build a project from the template (run from the skill directory)
+cd skills/city-miniature
 node scripts/new-project.mjs --out /tmp/try-city
 cd /tmp/try-city && npm ci && npm run build:single && node tests/run.mjs
 
-# reinstall the working copy after editing this repo
-rsync -a --delete --exclude .git --exclude docs ~/Projects/city-miniature/ \
+# install the skill globally after editing this repo
+rsync -a --delete --exclude docs skills/city-miniature/ \
   ~/.config/opencode/skills/city-miniature/
 ```
 
@@ -23,12 +24,13 @@ skill itself; the assets are the source.
 
 The skill is a template plus documentation. Nothing here executes at skill load time.
 
-- `SKILL.md` — the model-facing instructions: when to use, workflow, module map, recipes.
-- `assets/san-francisco-diorama/` — the actual project. Its own `src/`, `tests/` and `scripts/` are
-  what a scaffolded user gets.
-- `references/` — the deep detail the model reads on demand.
-- `scripts/new-project.mjs` — the only skill-level executable.
-- `results/` — a built reference output, for eyeballing what "done" looks like.
+- `skills/city-miniature/SKILL.md` — the model-facing instructions.
+- `skills/city-miniature/assets/san-francisco-diorama/` — the actual project; a scaffolded user gets
+  its `src/`, `tests/` and `scripts/`.
+- `skills/city-miniature/references/` — the deep detail the model reads on demand.
+- `skills/city-miniature/scripts/new-project.mjs` — the only skill-level executable.
+- `skills/city-miniature/results/` — a built reference output.
+- `ATTRIBUTION.md` — origin and licence status of the derived work. Keep it accurate.
 
 The template's construction order is documented in `references/method.md`; do not reorder it without
 reading that file.
@@ -40,8 +42,11 @@ reading that file.
 - `SKILL.md` is read by a model, not a parser: keep it short, concrete and free of hedging.
 - `assets/…/src/i18n/strings.json` carries both English and Simplified Chinese. Keep the keys in sync.
 - Do not vendor `node_modules` or build output into the repo; `.gitignore` covers them.
+- The skill must stay at `skills/<id>/SKILL.md`; the directory name is the ID OpenCode loads.
 - The installed copy at `~/.config/opencode/skills/city-miniature` must be re-synced after edits here
   (command above), or the skill will describe a newer template than it ships.
+- `ATTRIBUTION.md` must stay in sync with the code: if reused components change, update it.
+- Do not restore the original author's brand mark or wordmark; the fork uses a neutral identity.
 
 ## Known issues
 
