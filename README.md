@@ -1,15 +1,25 @@
 # City Miniature — an OpenCode skill
 
-Build an interactive 3D miniature of a city as **one self-contained HTML file**: a street grid,
-dedicated landmark models, traffic and boats, day/night lighting, and a landmark bar with camera
-flights. Ships with a working San Francisco diorama as the template.
+Build an interactive 3D miniature of a city **from scratch** as one self-contained HTML file:
+city-specific geography, landmarks, traffic, day/night lighting and bilingual UI. Existing
+miniatures are **mechanism references only** — never copy a scene and reskin it.
 
-### ▶ [Open the live demo](https://somphol.github.io/san-francisco-miniature/)
+The skill ships a blank, city-agnostic starter and a design brief. The working San Francisco
+diorama is included as a reference implementation; the public Bangkok miniature is the from-scratch
+case study.
 
-Drag to orbit, click a landmark to fly to it, switch to Night. Built with this template; it is the
-same single file an installation produces.
+### Reference implementation
 
-![San Francisco diorama](skills/city-miniature/docs/preview.png)
+[San Francisco](https://somphol.github.io/san-francisco-miniature/) — the mechanism reference:
+rotated grid, Market Street, eight SF landmarks, Golden Gate Park, bay piers.
+
+### From-scratch example
+
+[Bangkok](https://somphol.github.io/bangkok-miniature/) — the Chao Phraya, two banks, eight Bangkok
+landmarks, tuk-tuks, long-tail boats and English/Thai copy. It started as a rejected reskin and was
+rebuilt from scratch.
+
+![San Francisco reference implementation](skills/city-miniature/docs/preview.png)
 
 ## Install
 
@@ -41,50 +51,66 @@ It is also published as an HTTP catalog — add one URL and OpenCode fetches it:
 
 ```sh
 cd ~/.config/opencode/skills/city-miniature
-node scripts/new-project.mjs --out ~/my-miniature
-cd ~/my-miniature
-npm ci
-npm run dev            # live editing
-npm run build:single   # -> dist-single/index.html
-node tests/run.mjs     # geometry, traffic, diversity, planning
-node scripts/verify.mjs # driven interactions, frame-rate independent
+node scripts/new-project.mjs --out ~/my-city
+cd ~/my-city
+npm install
+npm run dev
 ```
 
-`npm run shoot` is the deeper visual harness; it needs GPU-backed headless Chrome.
+Then:
+
+1. Fill `CITY.md` — geography, districts, 6–8 landmarks, street pattern, architecture, transport,
+   palette, copy and verification targets.
+2. Read `references/city-brief.md`, `method.md`, `lessons.md`, `verification.md` and `hosting.md`.
+3. Author the target city's geography, plan, buildings, landmarks, environment, traffic and copy
+   from scratch.
+4. Add the target's plan/geometry tests, browser checks and single-file build.
+5. Review the day/night overview and every landmark image before publishing.
+
+The blank starter has no scene code. That is deliberate: the city's geography and landmarks drive
+the plan, not the other way around. Do not copy the San Francisco asset.
+
+## Why from scratch
+
+A copied scene inherits the old city's outline, grid, landmark spacing, street names, building
+palette, copy and tests. It reads as the old city with new labels, and fixing it costs more than
+starting clean. The Bangkok build is the evidence: the first attempt was a copied SF scaffold and
+was rejected; the from-scratch rebuild produced a cleaner, more accurate river city. The full case
+study is in
+[`skills/city-miniature/references/build-log.md`](skills/city-miniature/references/build-log.md).
 
 ## What it produces
 
-`dist-single/index.html` — roughly 1 MB, no external scripts, fonts, images or network calls. It runs
-from disk, from a static host, or on GitHub Pages, and embeds in a 345×345 iframe.
-
-The template's city, San Francisco, has eight landmarks (Golden Gate Bridge, Transamerica Pyramid,
-Salesforce Tower, Ferry Building, Coit Tower, Painted Ladies, City Hall, Alcatraz), a rotated
-downtown grid with Market Street cutting across it, Golden Gate Park, the Presidio, bay piers and
-~200 street parcels.
+A city-specific single-file build, typically 0.5–1.5 MB, with no external scripts, fonts, images or
+network calls. It runs from disk, from a static host or GitHub Pages, and embeds in a 345×345
+iframe. The reference build is
+[`skills/city-miniature/results/san-francisco-diorama/index.html`](skills/city-miniature/results/san-francisco-diorama/index.html).
 
 ## Repository layout
 
 ```text
 skills/city-miniature/
-├── SKILL.md                     workflow, module map, adaptation recipes
-├── ATTRIBUTION.md               origin, reused components, licence status
-├── assets/san-francisco-diorama the working template (source, 45 files)
-├── results/…/index.html         the published single-file build
-├── references/                  method, lessons, verification, hosting, build log
-├── scripts/new-project.mjs      scaffold a project from the template
-└── docs/preview.png             screenshot of this build
+├── SKILL.md                     the model-facing workflow and the from-scratch rule
+├── ATTRIBUTION.md               origin, reused mechanism, licence status
+├── references/
+│   ├── city-brief.md            the design contract to fill before coding
+│   ├── method.md                from-scratch order and invariants
+│   ├── lessons.md               reskin failure and technical regressions
+│   ├── verification.md          tests, capture API, headless checks
+│   ├── hosting.md               single-file build, CSP, Pages, handshake
+│   └── build-log.md             Bangkok from-scratch case study + SF reference
+├── scripts/new-project.mjs      blank, city-agnostic starter (no scene code)
+├── assets/san-francisco-diorama the reference implementation, not a template
+├── results/…/index.html         the reference single-file build
+└── docs/preview.png             reference screenshot
 ```
-
-## Adapting it to another city
-
-Change the outline, the street frame, the landmark anchors and their models, the camera views and
-the copy **together** — a new city with old coordinates reads as a reskin. `references/method.md`
-lists the invariants; `references/build-log.md` records the dead ends so you do not repeat them.
 
 ## Attribution
 
-The template derives from the **Manhattan Miniature 0.2.0** sample by **SandBase Lab**
-(<https://www.sandbase.ai>). What was reused, what is new, and the licence status are documented in
-[ATTRIBUTION.md](ATTRIBUTION.md). The original archive carried no licence for the sample itself, so
-attribution is given but redistribution terms should be confirmed with the author. The original
-brand mark is not redistributed: the fork uses a neutral identity.
+The San Francisco reference derives from the **Manhattan Miniature 0.2.0** sample by **SandBase
+Lab** (<https://www.sandbase.ai>). What was reused, what is new, the licence status and the
+from-scratch practice are documented in [ATTRIBUTION.md](ATTRIBUTION.md). The original archive
+carried no licence for the sample itself, so attribution is given but redistribution terms should be
+confirmed with the author. The original brand mark is not redistributed.
+
+The blank starter and the new documentation are original to this skill.
