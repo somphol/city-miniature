@@ -4,6 +4,11 @@ Build an interactive 3D miniature of a city as **one self-contained HTML file**:
 dedicated landmark models, traffic and boats, day/night lighting, and a landmark bar with camera
 flights. Ships with a working San Francisco diorama as the template.
 
+### ▶ [Open the live demo](https://somphol.github.io/san-francisco-miniature/)
+
+Drag to orbit, click a landmark to fly to it, switch to Night. Built with this template; it is the
+same single file an installation produces.
+
 ![San Francisco diorama](skills/city-miniature/docs/preview.png)
 
 ## Install
